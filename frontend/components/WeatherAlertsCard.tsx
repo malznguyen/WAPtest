@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react';
 import { weatherService } from '@/services/weatherService';
 import { WeatherAlert } from '@/types/weather';
-import { LargeCardSkeleton } from './LoadingSkeleton';
+import { WeatherCardSkeleton } from './LoadingSkeleton';
 import { AlertTriangle, ShieldAlert, Info } from 'lucide-react';
 
 interface WeatherAlertsCardProps {
@@ -49,7 +49,7 @@ export default function WeatherAlertsCard({ city }: WeatherAlertsCardProps) {
   return (
     <>
       {loading ? (
-        <LargeCardSkeleton />
+        <WeatherCardSkeleton />
       ) : error ? (
         <div className="bg-white/70 backdrop-blur-xl rounded-3xl p-8 shadow-xl border border-white/20">
           <div className="text-red-500 text-sm">{error}</div>
