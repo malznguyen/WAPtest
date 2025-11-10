@@ -23,42 +23,40 @@ export default function Home() {
       <Header onCityChange={handleCityChange} />
 
       {/* Main Content */}
-      <main className="max-w-[1800px] mx-auto px-6 py-8">
-        <div className="flex gap-6">
+      <main className="max-w-[1800px] mx-auto px-4 lg:px-6 py-6 lg:py-8">
+        <div className="flex flex-col lg:flex-row gap-6">
           {/* Left Column - Weather Cards (70%) */}
-          <div className="flex-[7] space-y-6">
+          <div className="w-full lg:flex-[7] space-y-6">
             {/* Bento Grid Layout */}
-            <div className="grid grid-cols-12 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-12 gap-4 lg:gap-6">
               {/* Row 1 - Current Weather and Small Cards */}
-              <div className="col-span-8">
+              <div className="md:col-span-12 lg:col-span-8">
                 <CurrentWeatherCard city={city} />
               </div>
-              <div className="col-span-4 space-y-6">
+              <div className="md:col-span-12 lg:col-span-4 grid grid-cols-2 md:grid-cols-2 lg:grid-cols-1 gap-4 lg:gap-6">
                 <FeelsLikeCard city={city} />
-                <div className="aspect-[4/3]">
-                  <WindCard city={city} />
-                </div>
+                <WindCard city={city} />
               </div>
 
               {/* Row 2 - AI Alert */}
-              <div className="col-span-12">
+              <div className="md:col-span-12">
                 <AIAlertCard city={city} />
               </div>
 
               {/* Row 3 - Hourly Forecast */}
-              <div className="col-span-12">
+              <div className="md:col-span-12">
                 <HourlyForecastCard city={city} />
               </div>
 
               {/* Row 4 - Daily Forecast */}
-              <div className="col-span-12">
+              <div className="md:col-span-12">
                 <DailyForecastCard city={city} />
               </div>
             </div>
           </div>
 
           {/* Right Column - Chat Panel (30%) */}
-          <div className="flex-[3] sticky top-24 h-[calc(100vh-120px)]">
+          <div className="w-full lg:flex-[3] lg:sticky lg:top-24 h-[500px] lg:h-[calc(100vh-120px)]">
             <ChatPanel city={city} />
           </div>
         </div>

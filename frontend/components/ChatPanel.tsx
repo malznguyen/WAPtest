@@ -76,11 +76,20 @@ export default function ChatPanel({ city }: ChatPanelProps) {
   };
 
   return (
-    <div className="h-full flex flex-col bg-white/60 backdrop-blur-md rounded-3xl shadow-lg overflow-hidden">
+    <div className="h-full flex flex-col bg-white/70 backdrop-blur-xl rounded-3xl shadow-xl border border-white/20 overflow-hidden card-hover fade-in">
       {/* Header */}
-      <div className="px-6 py-4 border-b border-gray-200 bg-white/40">
-        <h2 className="text-lg font-bold text-gray-800">Weather Assistant</h2>
-        <p className="text-xs text-gray-500 mt-1">Ask me anything about the weather</p>
+      <div className="px-6 py-4 border-b border-gray-200/50 bg-gradient-to-r from-blue-50/50 to-indigo-50/50">
+        <div className="flex items-center gap-2">
+          <div className="p-2 bg-blue-500 rounded-xl">
+            <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
+            </svg>
+          </div>
+          <div>
+            <h2 className="text-lg font-bold text-gray-800">Weather Assistant</h2>
+            <p className="text-xs text-gray-500">Ask me anything about the weather</p>
+          </div>
+        </div>
       </div>
 
       {/* Messages Area */}
@@ -118,13 +127,13 @@ export default function ChatPanel({ city }: ChatPanelProps) {
         {messages.map((message, index) => (
           <div
             key={index}
-            className={`flex ${message.role === 'user' ? 'justify-end' : 'justify-start'}`}
+            className={`flex ${message.role === 'user' ? 'justify-end' : 'justify-start'} slide-up`}
           >
             <div
-              className={`max-w-[80%] px-4 py-3 rounded-2xl ${
+              className={`max-w-[80%] px-4 py-3 rounded-2xl shadow-md ${
                 message.role === 'user'
-                  ? 'bg-blue-500 text-white rounded-tr-none'
-                  : 'bg-gray-100 text-gray-800 rounded-tl-none'
+                  ? 'bg-gradient-to-br from-blue-500 to-blue-600 text-white rounded-tr-sm'
+                  : 'bg-gradient-to-br from-gray-50 to-gray-100 text-gray-800 rounded-tl-sm border border-gray-200'
               }`}
             >
               <p className="text-sm leading-relaxed whitespace-pre-wrap">{message.content}</p>
@@ -159,7 +168,7 @@ export default function ChatPanel({ city }: ChatPanelProps) {
       </div>
 
       {/* Input Area */}
-      <div className="px-6 py-4 border-t border-gray-200 bg-white/40">
+      <div className="px-6 py-4 border-t border-gray-200/50 bg-gradient-to-r from-gray-50/50 to-slate-50/50">
         <div className="flex gap-2">
           <div className="flex-1 relative">
             <textarea
@@ -170,11 +179,11 @@ export default function ChatPanel({ city }: ChatPanelProps) {
               placeholder="Type your message..."
               disabled={isLoading}
               rows={1}
-              className="w-full px-4 py-3 pr-12 rounded-full bg-gray-100 border-2 border-transparent focus:border-blue-400 focus:outline-none resize-none text-gray-800 placeholder-gray-500 disabled:opacity-50"
+              className="w-full px-4 py-3 pr-12 rounded-2xl bg-white border-2 border-gray-200 focus:border-blue-400 focus:outline-none focus:ring-2 focus:ring-blue-100 resize-none text-gray-800 placeholder-gray-400 disabled:opacity-50 transition-all shadow-sm"
               style={{ minHeight: '48px', maxHeight: '120px' }}
             />
             <button
-              className="absolute right-2 top-1/2 -translate-y-1/2 p-2 text-gray-400 hover:text-gray-600 transition-colors"
+              className="absolute right-2 top-1/2 -translate-y-1/2 p-2 text-gray-400 hover:text-blue-500 transition-colors rounded-lg hover:bg-blue-50"
               title="Voice input"
             >
               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -185,9 +194,11 @@ export default function ChatPanel({ city }: ChatPanelProps) {
           <button
             onClick={handleSendMessage}
             disabled={!inputValue.trim() || isLoading}
-            className="px-6 py-3 bg-blue-500 text-white rounded-full hover:bg-blue-600 transition-colors disabled:opacity-50 disabled:cursor-not-allowed font-medium"
+            className="px-6 py-3 bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-2xl hover:from-blue-600 hover:to-blue-700 transition-all disabled:opacity-50 disabled:cursor-not-allowed font-semibold shadow-md hover:shadow-lg active:scale-95"
           >
-            Send
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
+            </svg>
           </button>
         </div>
       </div>
