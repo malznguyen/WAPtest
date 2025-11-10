@@ -4,8 +4,11 @@ import os
 from app.services.accuweather_service import AccuWeatherService
 
 ai_bp = Blueprint('ai', __name__, url_prefix='/api/ai')
-client = OpenAI(api_key=os.getenv('OPENAI_API_KEY'))
 weather_service = AccuWeatherService()
+
+def get_openai_client():
+    """Get OpenAI client instance."""
+    return OpenAI(api_key=os.getenv('OPENAI_API_KEY'))
 
 @ai_bp.route('/chat', methods=['POST'])
 def chat():
@@ -14,6 +17,7 @@ def chat():
     city = data.get('city', 'Hanoi')
 
     try:
+        client = get_openai_client()
         key = weather_service.get_location_key(city)
         weather = weather_service.get_current(key)
 
@@ -37,6 +41,7 @@ def alert():
     city = request.args.get('city', 'Hanoi')
 
     try:
+        client = get_openai_client()
         key = weather_service.get_location_key(city)
         weather = weather_service.get_current(key)
         hourly = weather_service.get_hourly(key, 4)
