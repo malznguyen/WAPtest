@@ -64,11 +64,12 @@ export default function HourlyForecastCard({ city }: HourlyForecastCardProps) {
 
           <div className="space-y-4">
             {/* Hourly Items */}
-            <div className="flex gap-4 overflow-x-auto pb-2 scrollbar-hide">
-              {hourlyData.map((hour, index) => (
+            <div className="relative">
+              <div className="flex gap-4 overflow-x-auto pb-2 scrollbar-hide snap-x snap-mandatory">
+                {hourlyData.map((hour, index) => (
                 <div
                   key={index}
-                  className={`flex flex-col items-center gap-2 min-w-[80px] p-3 rounded-2xl transition-all duration-300 cursor-pointer ${
+                  className={`flex flex-col items-center gap-2 min-w-[80px] p-3 rounded-2xl transition-all duration-300 cursor-pointer snap-center ${
                     hoveredIndex === index ? 'bg-blue-50 scale-105 shadow-md' : 'hover:bg-gray-50'
                   }`}
                   onMouseEnter={() => setHoveredIndex(index)}
@@ -87,6 +88,9 @@ export default function HourlyForecastCard({ city }: HourlyForecastCardProps) {
                   )}
                 </div>
               ))}
+              </div>
+              {/* Scroll indicator for mobile */}
+              <div className="absolute right-0 top-0 bottom-0 w-12 bg-gradient-to-l from-white/70 to-transparent pointer-events-none md:hidden" />
             </div>
 
             {/* Temperature Chart */}

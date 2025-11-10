@@ -3,6 +3,56 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+
+  /* Design System - Color Palette */
+  --color-primary-50: #eff6ff;
+  --color-primary-100: #dbeafe;
+  --color-primary-500: #3b82f6;
+  --color-primary-600: #2563eb;
+  --color-primary-700: #1d4ed8;
+
+  --color-gray-50: #f9fafb;
+  --color-gray-100: #f3f4f6;
+  --color-gray-200: #e5e7eb;
+  --color-gray-400: #9ca3af;
+  --color-gray-500: #6b7280;
+  --color-gray-600: #4b5563;
+  --color-gray-700: #374151;
+  --color-gray-800: #1f2937;
+
+  /* Semantic colors */
+  --color-surface: rgba(255, 255, 255, 0.7);
+  --color-surface-hover: rgba(255, 255, 255, 0.9);
+  --color-border: rgba(255, 255, 255, 0.2);
+
+  /* Spacing scale */
+  --spacing-xs: 0.25rem;
+  --spacing-sm: 0.5rem;
+  --spacing-md: 1rem;
+  --spacing-lg: 1.5rem;
+  --spacing-xl: 2rem;
+  --spacing-2xl: 3rem;
+
+  /* Typography scale */
+  --font-size-xs: 0.75rem;
+  --font-size-sm: 0.875rem;
+  --font-size-base: 1rem;
+  --font-size-lg: 1.125rem;
+  --font-size-xl: 1.25rem;
+  --font-size-2xl: 1.5rem;
+  --font-size-3xl: 1.875rem;
+  --font-size-4xl: 2.25rem;
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+    --color-surface: rgba(30, 30, 30, 0.7);
+    --color-surface-hover: rgba(40, 40, 40, 0.9);
+    --color-border: rgba(255, 255, 255, 0.1);
+  }
 }
 
 @theme inline {
@@ -28,11 +78,41 @@ body {
   display: none;
 }
 
-/* Smooth animations */
-* {
-  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter;
+/* Accessibility - Focus styles */
+*:focus-visible {
+  outline: 2px solid var(--color-primary-500);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+a:focus-visible {
+  outline: 2px solid var(--color-primary-500);
+  outline-offset: 2px;
+}
+
+/* Smooth transitions - Applied to specific interactive elements only */
+button,
+input,
+textarea,
+a,
+[role="button"] {
+  transition-property: color, background-color, border-color, opacity, box-shadow, transform;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   transition-duration: 150ms;
+}
+
+/* Respect user's motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }
 
 /* Micro-interactions */
@@ -94,12 +174,17 @@ body {
   }
 }
 
-.float-animation {
-  animation: float 3s ease-in-out infinite;
-}
+/* Only apply animations when user has no motion preference */
+@media (prefers-reduced-motion: no-preference) {
+  .float-animation {
+    animation: float 3s ease-in-out infinite;
+    will-change: transform;
+  }
 
-.float-slow {
-  animation: float-slow 4s ease-in-out infinite;
+  .float-slow {
+    animation: float-slow 4s ease-in-out infinite;
+    will-change: transform;
+  }
 }
 
 .shimmer {
@@ -120,12 +205,19 @@ body {
   animation: slide-up 0.6s ease-out;
 }
 
-/* Enhanced card hover effects */
+/* Enhanced card hover effects - Optimized for performance */
 .card-hover {
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1),
+              box-shadow 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: transform;
 }
 
 .card-hover:hover {
-  transform: translateY(-4px);
+  transform: translateY(-2px) scale(1.005);
   box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+/* Active state for buttons */
+button:active {
+  transform: scale(0.98);
 }

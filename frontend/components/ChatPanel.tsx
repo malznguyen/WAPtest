@@ -103,20 +103,29 @@ export default function ChatPanel({ city }: ChatPanelProps) {
             {/* Suggestion Chips */}
             <div className="space-y-2 w-full">
               <button
-                onClick={() => setInputValue("What's the weather like today?")}
-                className="w-full px-4 py-2 bg-gray-100 hover:bg-gray-200 rounded-lg text-sm text-gray-700 transition-colors"
+                onClick={() => {
+                  setInputValue("What's the weather like today?");
+                  setTimeout(() => handleSendMessage(), 100);
+                }}
+                className="w-full px-4 py-2 bg-gray-100 hover:bg-gray-200 rounded-lg text-sm text-gray-700 transition-colors text-left"
               >
                 What's the weather like today?
               </button>
               <button
-                onClick={() => setInputValue("Should I bring an umbrella?")}
-                className="w-full px-4 py-2 bg-gray-100 hover:bg-gray-200 rounded-lg text-sm text-gray-700 transition-colors"
+                onClick={() => {
+                  setInputValue("Should I bring an umbrella?");
+                  setTimeout(() => handleSendMessage(), 100);
+                }}
+                className="w-full px-4 py-2 bg-gray-100 hover:bg-gray-200 rounded-lg text-sm text-gray-700 transition-colors text-left"
               >
                 Should I bring an umbrella?
               </button>
               <button
-                onClick={() => setInputValue("What should I wear today?")}
-                className="w-full px-4 py-2 bg-gray-100 hover:bg-gray-200 rounded-lg text-sm text-gray-700 transition-colors"
+                onClick={() => {
+                  setInputValue("What should I wear today?");
+                  setTimeout(() => handleSendMessage(), 100);
+                }}
+                className="w-full px-4 py-2 bg-gray-100 hover:bg-gray-200 rounded-lg text-sm text-gray-700 transition-colors text-left"
               >
                 What should I wear today?
               </button>
@@ -130,11 +139,16 @@ export default function ChatPanel({ city }: ChatPanelProps) {
             className={`flex ${message.role === 'user' ? 'justify-end' : 'justify-start'} slide-up`}
           >
             <div
-              className={`max-w-[80%] px-4 py-3 rounded-2xl shadow-md ${
+              className={`max-w-[85%] px-4 py-3 rounded-2xl shadow-md backdrop-blur-sm ${
                 message.role === 'user'
-                  ? 'bg-gradient-to-br from-blue-500 to-blue-600 text-white rounded-tr-sm'
-                  : 'bg-gradient-to-br from-gray-50 to-gray-100 text-gray-800 rounded-tl-sm border border-gray-200'
+                  ? 'bg-gradient-to-br from-blue-500 to-blue-600 text-white rounded-tr-md'
+                  : 'bg-white/90 text-gray-800 rounded-tl-md border border-gray-200'
               }`}
+              style={{
+                boxShadow: message.role === 'user'
+                  ? '0 2px 8px rgba(59, 130, 246, 0.3)'
+                  : '0 2px 8px rgba(0, 0, 0, 0.1)'
+              }}
             >
               <p className="text-sm leading-relaxed whitespace-pre-wrap">{message.content}</p>
               <div
@@ -153,12 +167,12 @@ export default function ChatPanel({ city }: ChatPanelProps) {
         ))}
 
         {isLoading && (
-          <div className="flex justify-start">
-            <div className="bg-gray-100 rounded-2xl rounded-tl-none px-4 py-3">
-              <div className="flex gap-1">
-                <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '0ms' }}></div>
-                <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '150ms' }}></div>
-                <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '300ms' }}></div>
+          <div className="flex justify-start slide-up">
+            <div className="bg-white/90 border border-gray-200 rounded-2xl rounded-tl-md px-5 py-4 shadow-md">
+              <div className="flex gap-1.5">
+                <div className="w-2.5 h-2.5 bg-blue-400 rounded-full animate-bounce" style={{ animationDelay: '0ms', animationDuration: '1s' }}></div>
+                <div className="w-2.5 h-2.5 bg-blue-400 rounded-full animate-bounce" style={{ animationDelay: '150ms', animationDuration: '1s' }}></div>
+                <div className="w-2.5 h-2.5 bg-blue-400 rounded-full animate-bounce" style={{ animationDelay: '300ms', animationDuration: '1s' }}></div>
               </div>
             </div>
           </div>

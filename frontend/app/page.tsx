@@ -26,7 +26,7 @@ export default function Home() {
       <main className="max-w-[1800px] mx-auto px-4 lg:px-6 py-6 lg:py-8">
         <div className="flex flex-col lg:flex-row gap-6">
           {/* Left Column - Weather Cards (70%) */}
-          <div className="w-full lg:flex-[7] space-y-6">
+          <div className="w-full lg:w-[70%] space-y-6">
             {/* Bento Grid Layout */}
             <div className="grid grid-cols-1 md:grid-cols-12 gap-4 lg:gap-6">
               {/* Row 1 - Current Weather and Small Cards */}
@@ -56,7 +56,7 @@ export default function Home() {
           </div>
 
           {/* Right Column - Chat Panel (30%) */}
-          <div className="w-full lg:flex-[3] lg:sticky lg:top-24 h-[500px] lg:h-[calc(100vh-120px)]">
+          <div className="w-full lg:w-[30%] lg:sticky lg:top-24 min-h-[600px] max-h-[800px] lg:h-[calc(100vh-120px)]">
             <ChatPanel city={city} />
           </div>
         </div>
