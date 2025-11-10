@@ -134,3 +134,170 @@ def get_daily_forecast():
             'success': False,
             'error': f'An error occurred: {str(e)}'
         }), 500
+
+
+@weather_bp.route('/alerts', methods=['GET'])
+def get_weather_alerts():
+    """Get active weather alerts for a city"""
+    if not weather_service:
+        return jsonify({
+            'success': False,
+            'error': 'Weather service not configured. Please set ACCUWEATHER_API_KEY.'
+        }), 500
+
+    city = request.args.get('city', 'Hanoi')
+
+    try:
+        # Get location key
+        location_key = weather_service.get_location_key(city)
+        if not location_key:
+            return jsonify({
+                'success': False,
+                'error': f'City "{city}" not found'
+            }), 404
+
+        # Get weather alerts
+        alerts = weather_service.get_weather_alerts(location_key)
+        if alerts is None:
+            return jsonify({
+                'success': False,
+                'error': 'Failed to fetch weather alerts'
+            }), 500
+
+        return jsonify({
+            'success': True,
+            'data': alerts,
+            'city': city
+        })
+
+    except Exception as e:
+        return jsonify({
+            'success': False,
+            'error': f'An error occurred: {str(e)}'
+        }), 500
+
+
+@weather_bp.route('/indices', methods=['GET'])
+def get_weather_indices():
+    """Get weather indices (air quality, pollen, etc.) for a city"""
+    if not weather_service:
+        return jsonify({
+            'success': False,
+            'error': 'Weather service not configured. Please set ACCUWEATHER_API_KEY.'
+        }), 500
+
+    city = request.args.get('city', 'Hanoi')
+    days = int(request.args.get('days', 1))
+
+    try:
+        # Get location key
+        location_key = weather_service.get_location_key(city)
+        if not location_key:
+            return jsonify({
+                'success': False,
+                'error': f'City "{city}" not found'
+            }), 404
+
+        # Get weather indices
+        indices = weather_service.get_weather_indices(location_key, days)
+        if indices is None:
+            return jsonify({
+                'success': False,
+                'error': 'Failed to fetch weather indices'
+            }), 500
+
+        return jsonify({
+            'success': True,
+            'data': indices,
+            'city': city
+        })
+
+    except Exception as e:
+        return jsonify({
+            'success': False,
+            'error': f'An error occurred: {str(e)}'
+        }), 500
+
+
+@weather_bp.route('/extended', methods=['GET'])
+def get_extended_forecast():
+    """Get extended forecast (up to 15 days) for a city"""
+    if not weather_service:
+        return jsonify({
+            'success': False,
+            'error': 'Weather service not configured. Please set ACCUWEATHER_API_KEY.'
+        }), 500
+
+    city = request.args.get('city', 'Hanoi')
+    days = int(request.args.get('days', 15))
+
+    try:
+        # Get location key
+        location_key = weather_service.get_location_key(city)
+        if not location_key:
+            return jsonify({
+                'success': False,
+                'error': f'City "{city}" not found'
+            }), 404
+
+        # Get extended forecast
+        forecast = weather_service.get_extended_forecast(location_key, days)
+        if not forecast:
+            return jsonify({
+                'success': False,
+                'error': 'Failed to fetch extended forecast'
+            }), 500
+
+        return jsonify({
+            'success': True,
+            'data': forecast,
+            'city': city
+        })
+
+    except Exception as e:
+        return jsonify({
+            'success': False,
+            'error': f'An error occurred: {str(e)}'
+        }), 500
+
+
+@weather_bp.route('/historical', methods=['GET'])
+def get_historical_weather():
+    """Get historical weather data (past 6 or 24 hours) for a city"""
+    if not weather_service:
+        return jsonify({
+            'success': False,
+            'error': 'Weather service not configured. Please set ACCUWEATHER_API_KEY.'
+        }), 500
+
+    city = request.args.get('city', 'Hanoi')
+    hours = int(request.args.get('hours', 24))
+
+    try:
+        # Get location key
+        location_key = weather_service.get_location_key(city)
+        if not location_key:
+            return jsonify({
+                'success': False,
+                'error': f'City "{city}" not found'
+            }), 404
+
+        # Get historical weather
+        historical = weather_service.get_historical_weather(location_key, hours)
+        if not historical:
+            return jsonify({
+                'success': False,
+                'error': 'Failed to fetch historical weather data'
+            }), 500
+
+        return jsonify({
+            'success': True,
+            'data': historical,
+            'city': city
+        })
+
+    except Exception as e:
+        return jsonify({
+            'success': False,
+            'error': f'An error occurred: {str(e)}'
+        }), 500

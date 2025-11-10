@@ -9,6 +9,10 @@ import HourlyForecastCard from '@/components/HourlyForecastCard';
 import DailyForecastCard from '@/components/DailyForecastCard';
 import AIAlertCard from '@/components/AIAlertCard';
 import ChatPanel from '@/components/ChatPanel';
+import WeatherAlertsCard from '@/components/WeatherAlertsCard';
+import WeatherIndicesCard from '@/components/WeatherIndicesCard';
+import ExtendedForecastCard from '@/components/ExtendedForecastCard';
+import HistoricalWeatherCard from '@/components/HistoricalWeatherCard';
 
 export default function Home() {
   const [city, setCity] = useState('Hanoi');
@@ -51,6 +55,24 @@ export default function Home() {
               {/* Row 4 - Daily Forecast */}
               <div className="md:col-span-12">
                 <DailyForecastCard city={city} />
+              </div>
+
+              {/* Row 5 - Weather Alerts */}
+              <div className="md:col-span-12">
+                <WeatherAlertsCard city={city} />
+              </div>
+
+              {/* Row 6 - Weather Indices & Historical */}
+              <div className="md:col-span-12 lg:col-span-6">
+                <WeatherIndicesCard city={city} />
+              </div>
+              <div className="md:col-span-12 lg:col-span-6">
+                <HistoricalWeatherCard city={city} />
+              </div>
+
+              {/* Row 7 - Extended Forecast */}
+              <div className="md:col-span-12">
+                <ExtendedForecastCard city={city} />
               </div>
             </div>
           </div>
