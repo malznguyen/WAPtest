@@ -38,7 +38,7 @@ A modern, production-ready weather application that combines real-time weather d
 ### 1. Clone the Repository
 
 ```bash
-git clone <your-repo-url>
+git clone https://github.com/malznguyen/WAPtest.git
 cd WAPtest
 ```
 
