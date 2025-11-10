@@ -2,6 +2,8 @@
 
 import { useEffect, useState } from 'react';
 import { aiService } from '@/services/aiService';
+import { AIAlertSkeleton } from './LoadingSkeleton';
+import { Sparkles } from 'lucide-react';
 
 interface AIAlertCardProps {
   city: string;
@@ -37,27 +39,35 @@ export default function AIAlertCard({ city }: AIAlertCardProps) {
   }, [city]);
 
   return (
-    <div className="bg-gradient-to-r from-blue-500 to-blue-600 rounded-3xl p-6 shadow-lg hover:shadow-xl transition-all hover:-translate-y-1">
-      <div className="flex items-start gap-4">
-        {/* Icon */}
-        <div className="text-4xl flex-shrink-0">🤖</div>
-
-        {/* Content */}
-        <div className="flex-1">
-          <div className="text-sm text-blue-100 font-medium mb-2">AI WEATHER INSIGHT</div>
-
-          {loading ? (
-            <div className="flex items-center gap-2">
-              <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></div>
-              <span className="text-white/80 text-sm">Analyzing weather...</span>
-            </div>
-          ) : error ? (
-            <div className="text-white/80 text-sm">{error}</div>
-          ) : (
-            <p className="text-white text-base leading-relaxed">{alert}</p>
-          )}
+    <>
+      {loading ? (
+        <AIAlertSkeleton />
+      ) : error ? (
+        <div className="bg-gradient-to-r from-blue-500 to-blue-600 rounded-3xl p-6 shadow-xl border border-blue-400/30">
+          <div className="text-white/80 text-sm">{error}</div>
         </div>
-      </div>
-    </div>
+      ) : (
+        <div className="bg-gradient-to-r from-blue-500 via-blue-600 to-indigo-600 rounded-3xl p-6 shadow-xl border border-blue-400/30 hover:shadow-2xl hover:scale-[1.01] transition-all duration-300 card-hover fade-in animate-pulse-subtle">
+          <div className="flex items-start gap-4">
+            {/* Icon */}
+            <div className="flex-shrink-0 p-3 bg-white/20 backdrop-blur-sm rounded-xl float-slow">
+              <Sparkles className="w-8 h-8 text-white" strokeWidth={2} />
+            </div>
+
+            {/* Content */}
+            <div className="flex-1">
+              <div className="flex items-center gap-2 mb-2">
+                <div className="text-sm text-blue-100 font-bold tracking-wider">AI WEATHER INSIGHT</div>
+                <div className="px-2 py-0.5 bg-white/20 rounded-full text-xs text-white font-semibold">
+                  Powered by AI
+                </div>
+              </div>
+
+              <p className="text-white text-base leading-relaxed font-medium">{alert}</p>
+            </div>
+          </div>
+        </div>
+      )}
+    </>
   );
 }

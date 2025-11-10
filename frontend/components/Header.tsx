@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { Search, Bell, Settings } from 'lucide-react';
 
 interface HeaderProps {
   onCityChange: (city: string) => void;
@@ -17,27 +18,34 @@ export default function Header({ onCityChange }: HeaderProps) {
   };
 
   return (
-    <header className="w-full bg-white/80 backdrop-blur-md shadow-sm sticky top-0 z-50">
-      <div className="max-w-[1800px] mx-auto px-6 py-4 flex items-center justify-between gap-4">
+    <header className="w-full bg-white/90 backdrop-blur-xl shadow-md sticky top-0 z-50 border-b border-white/20">
+      <div className="max-w-[1800px] mx-auto px-4 lg:px-6 py-4 flex items-center justify-between gap-4">
         {/* Logo/Title */}
-        <div className="flex items-center gap-2 min-w-[200px]">
-          <span className="text-2xl">☀️</span>
-          <h1 className="text-xl font-bold text-gray-800">Weather AI Forecast</h1>
+        <div className="flex items-center gap-2 min-w-[180px] lg:min-w-[200px]">
+          <div className="p-2 bg-gradient-to-br from-amber-400 to-orange-500 rounded-xl shadow-md">
+            <svg className="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24">
+              <circle cx="12" cy="12" r="5" />
+              <path d="M12 1v6M12 17v6M23 12h-6M7 12H1M19.07 4.93l-4.24 4.24M9.17 14.83l-4.24 4.24M19.07 19.07l-4.24-4.24M9.17 9.17L4.93 4.93" />
+            </svg>
+          </div>
+          <h1 className="text-lg lg:text-xl font-bold text-gray-800 hidden sm:block">Weather AI Forecast</h1>
+          <h1 className="text-lg font-bold text-gray-800 sm:hidden">Weather AI</h1>
         </div>
 
         {/* Search Bar */}
         <form onSubmit={handleSearch} className="flex-1 max-w-2xl">
-          <div className="relative">
+          <div className="relative group">
+            <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400 group-focus-within:text-blue-500 transition-colors" strokeWidth={2} />
             <input
               type="text"
               value={searchValue}
               onChange={(e) => setSearchValue(e.target.value)}
               placeholder="Search for a city..."
-              className="w-full px-6 py-3 rounded-full bg-gray-100 border-2 border-transparent focus:border-blue-400 focus:outline-none transition-all text-gray-800 placeholder-gray-500"
+              className="w-full pl-12 pr-24 py-3 rounded-full bg-gray-50 border-2 border-transparent focus:border-blue-400 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-100 transition-all text-gray-800 placeholder-gray-400 shadow-sm"
             />
             <button
               type="submit"
-              className="absolute right-2 top-1/2 -translate-y-1/2 px-4 py-1.5 bg-blue-500 text-white rounded-full hover:bg-blue-600 transition-colors text-sm font-medium"
+              className="absolute right-2 top-1/2 -translate-y-1/2 px-4 py-1.5 bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-full hover:from-blue-600 hover:to-blue-700 transition-all text-sm font-semibold shadow-md hover:shadow-lg active:scale-95"
             >
               Search
             </button>
@@ -45,17 +53,12 @@ export default function Header({ onCityChange }: HeaderProps) {
         </form>
 
         {/* Action Icons */}
-        <div className="flex items-center gap-3 min-w-[100px] justify-end">
-          <button className="p-2 hover:bg-gray-100 rounded-full transition-colors" title="Notifications">
-            <svg className="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
-            </svg>
+        <div className="hidden md:flex items-center gap-2">
+          <button className="p-2.5 hover:bg-gray-100 rounded-xl transition-all hover:shadow-md" title="Notifications">
+            <Bell className="w-5 h-5 text-gray-600" strokeWidth={2} />
           </button>
-          <button className="p-2 hover:bg-gray-100 rounded-full transition-colors" title="Settings">
-            <svg className="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-            </svg>
+          <button className="p-2.5 hover:bg-gray-100 rounded-xl transition-all hover:shadow-md" title="Settings">
+            <Settings className="w-5 h-5 text-gray-600" strokeWidth={2} />
           </button>
         </div>
       </div>

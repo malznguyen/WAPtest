@@ -2,6 +2,8 @@
 
 import { useEffect, useState } from 'react';
 import { weatherService } from '@/services/weatherService';
+import { SmallCardSkeleton } from './LoadingSkeleton';
+import { Thermometer } from 'lucide-react';
 
 interface FeelsLikeCardProps {
   city: string;
@@ -32,20 +34,27 @@ export default function FeelsLikeCard({ city }: FeelsLikeCardProps) {
   }, [city]);
 
   return (
-    <div className="bg-white/60 backdrop-blur-md rounded-3xl p-6 shadow-lg hover:shadow-xl transition-all hover:-translate-y-1">
-      <div className="text-sm text-gray-500 font-medium mb-2">FEELS LIKE</div>
-
+    <>
       {loading ? (
-        <div className="flex items-center justify-center h-24">
-          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-500"></div>
-        </div>
+        <SmallCardSkeleton />
       ) : error ? (
-        <div className="text-red-500 text-sm">{error}</div>
+        <div className="bg-white/70 backdrop-blur-xl rounded-3xl p-6 shadow-xl border border-white/20">
+          <div className="text-red-500 text-sm">{error}</div>
+        </div>
       ) : (
-        <div className="flex items-center justify-center h-24">
-          <div className="text-5xl font-bold text-gray-800">{feelsLike}°</div>
+        <div className="bg-white/70 backdrop-blur-xl rounded-3xl p-6 shadow-xl border border-white/20 hover:shadow-2xl hover:scale-[1.02] transition-all duration-300 card-hover fade-in h-full">
+          <div className="flex items-center gap-2 mb-3">
+            <Thermometer className="w-4 h-4 text-orange-500" strokeWidth={2} />
+            <div className="text-sm text-gray-500 font-semibold tracking-wider">FEELS LIKE</div>
+          </div>
+
+          <div className="flex items-center justify-center h-24">
+            <div className="text-6xl font-black text-transparent bg-clip-text bg-gradient-to-br from-orange-500 to-red-400">
+              {feelsLike}°
+            </div>
+          </div>
         </div>
       )}
-    </div>
+    </>
   );
 }
