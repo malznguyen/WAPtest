@@ -70,3 +70,41 @@ export interface ApiResponse<T> {
   data?: T;
   error?: string;
 }
+
+export interface WeatherAlert {
+  alertId: string;
+  type: string;
+  severity: number;
+  headline: string;
+  category: string;
+  priority: number;
+  source: string;
+  startTime: string;
+  endTime: string;
+}
+
+export interface WeatherIndex {
+  id: number;
+  name: string;
+  category: string;
+  categoryValue: number;
+  value: number;
+  text: string;
+  ascending: boolean;
+}
+
+export interface HistoricalWeather {
+  dateTime: string;
+  epochTime: number;
+  temperature: number;
+  temperatureF: number;
+  weatherText: string;
+  weatherIcon: number;
+  humidity: number;
+  wind: {
+    speed: number;
+    direction: number;
+  };
+  pressure: number;
+  isDayTime: boolean;
+}
