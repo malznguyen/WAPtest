@@ -76,7 +76,7 @@ export default function WindCard({ city }: WindCardProps) {
 
             {/* Compass */}
             <div className="relative w-20 h-20 flex-shrink-0">
-              <div className="absolute inset-0 rounded-full border-4 border-gradient-to-br from-cyan-200 to-blue-200 bg-gradient-to-br from-cyan-50 to-blue-50 shadow-inner"></div>
+              <div className="absolute inset-0 rounded-full border-4 border-cyan-200 bg-gradient-to-br from-cyan-50 to-blue-50 shadow-inner"></div>
               <div className="absolute inset-0 flex items-center justify-center">
                 <div
                   className="w-1 h-8 bg-gradient-to-t from-cyan-600 to-blue-500 rounded-full shadow-lg transition-transform duration-700 ease-out"

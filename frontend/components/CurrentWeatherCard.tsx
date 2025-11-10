@@ -41,7 +41,26 @@ export default function CurrentWeatherCard({ city }: CurrentWeatherCardProps) {
         <WeatherCardSkeleton />
       ) : error ? (
         <div className="bg-white/70 backdrop-blur-xl rounded-3xl p-8 shadow-xl border border-white/20">
-          <div className="text-red-500 text-sm">{error}</div>
+          <div className="text-center space-y-4">
+            <div className="text-red-500 text-sm">{error}</div>
+            <button
+              onClick={() => {
+                setLoading(true);
+                setError(null);
+                weatherService.getCurrentWeather(city).then(data => {
+                  if (data) {
+                    setWeather(data);
+                  } else {
+                    setError('Failed to load weather data. Please try again.');
+                  }
+                  setLoading(false);
+                });
+              }}
+              className="px-4 py-2 bg-blue-500 text-white rounded-xl hover:bg-blue-600 transition-all text-sm font-semibold shadow-md hover:shadow-lg"
+            >
+              Retry
+            </button>
+          </div>
         </div>
       ) : weather ? (
         <div className="bg-white/70 backdrop-blur-xl rounded-3xl p-8 shadow-xl border border-white/20 hover:shadow-2xl hover:scale-[1.01] transition-all duration-300 card-hover fade-in">
@@ -49,13 +68,11 @@ export default function CurrentWeatherCard({ city }: CurrentWeatherCardProps) {
             {/* Main Temperature */}
             <div className="flex items-center justify-between">
               <div>
-                <div className="relative">
+                <div className="flex items-baseline gap-2">
                   <div className="text-8xl font-black text-transparent bg-clip-text bg-gradient-to-br from-blue-600 to-blue-400">
-                    {Math.round(weather.temperature)}°
+                    {Math.round(weather.temperature)}
                   </div>
-                  <div className="absolute -top-2 -right-8">
-                    <div className="text-3xl font-medium text-blue-400">C</div>
-                  </div>
+                  <div className="text-5xl font-medium text-blue-400 mb-2">°C</div>
                 </div>
                 <div className="text-xl text-gray-600 mt-2 font-medium">{weather.weatherText}</div>
               </div>

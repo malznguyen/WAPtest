@@ -41,6 +41,7 @@ export default function Header({ onCityChange }: HeaderProps) {
               value={searchValue}
               onChange={(e) => setSearchValue(e.target.value)}
               placeholder="Search for a city..."
+              aria-label="Search for a city"
               className="w-full pl-12 pr-24 py-3 rounded-full bg-gray-50 border-2 border-transparent focus:border-blue-400 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-100 transition-all text-gray-800 placeholder-gray-400 shadow-sm"
             />
             <button
@@ -54,10 +55,18 @@ export default function Header({ onCityChange }: HeaderProps) {
 
         {/* Action Icons */}
         <div className="hidden md:flex items-center gap-2">
-          <button className="p-2.5 hover:bg-gray-100 rounded-xl transition-all hover:shadow-md" title="Notifications">
+          <button
+            className="p-2.5 hover:bg-gray-100 rounded-xl transition-all hover:shadow-md focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2"
+            aria-label="View notifications"
+            title="Notifications"
+          >
             <Bell className="w-5 h-5 text-gray-600" strokeWidth={2} />
           </button>
-          <button className="p-2.5 hover:bg-gray-100 rounded-xl transition-all hover:shadow-md" title="Settings">
+          <button
+            className="p-2.5 hover:bg-gray-100 rounded-xl transition-all hover:shadow-md focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2"
+            aria-label="Open settings"
+            title="Settings"
+          >
             <Settings className="w-5 h-5 text-gray-600" strokeWidth={2} />
           </button>
         </div>
