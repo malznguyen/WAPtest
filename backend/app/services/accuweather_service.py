@@ -290,6 +290,9 @@ class AccuWeatherService:
         """
         Get extended daily forecast for a location (up to 15 days)
 
+        Note: Extended forecasts (10+ days) require a paid AccuWeather subscription.
+        This method will fall back to the 5-day forecast if extended forecasts are not available.
+
         Args:
             location_key: AccuWeather location key
             days: Number of days (10 or 15)
@@ -306,7 +309,22 @@ class AccuWeatherService:
                 'metric': 'true'
             }
 
+            print(f"Requesting extended forecast from: {url}")
             response = requests.get(url, params=params, timeout=10)
+
+            # Log response details for debugging
+            print(f"Response status code: {response.status_code}")
+
+            # Check if the API key doesn't have access to extended forecasts
+            if response.status_code in [401, 403]:
+                print(f"Extended forecast not available (status {response.status_code}). This feature requires a paid AccuWeather subscription.")
+                print("Falling back to 5-day forecast...")
+                # Fall back to 5-day forecast which is available in free tier
+                return self.get_daily_forecast(location_key, 5)
+
+            if response.status_code != 200:
+                print(f"Response body: {response.text}")
+
             response.raise_for_status()
 
             data = response.json()
@@ -336,6 +354,17 @@ class AccuWeatherService:
 
             return daily_data
 
+        except requests.HTTPError as e:
+            print(f"HTTP Error fetching extended forecast: {e}")
+            print(f"Status code: {e.response.status_code}")
+            print(f"Response: {e.response.text}")
+
+            # Try to fall back to 5-day forecast if extended forecast fails
+            if e.response.status_code in [401, 403]:
+                print("Falling back to 5-day forecast due to API access restrictions...")
+                return self.get_daily_forecast(location_key, 5)
+
+            return None
         except requests.RequestException as e:
             print(f"Error fetching extended forecast: {e}")
             return None
