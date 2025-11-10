@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { weatherService } from '@/services/weatherService';
 import { DailyForecast } from '@/types/weather';
 import { getWeatherIcon } from '@/utils/weatherIcons';
-import { LargeCardSkeleton } from './LoadingSkeleton';
+import { WeatherCardSkeleton } from './LoadingSkeleton';
 import { ArrowUp, ArrowDown, Droplets, Calendar } from 'lucide-react';
 
 interface ExtendedForecastCardProps {
@@ -53,7 +53,7 @@ export default function ExtendedForecastCard({ city }: ExtendedForecastCardProps
   return (
     <>
       {loading ? (
-        <LargeCardSkeleton />
+        <WeatherCardSkeleton />
       ) : error ? (
         <div className="bg-white/70 backdrop-blur-xl rounded-3xl p-8 shadow-xl border border-white/20">
           <div className="text-red-500 text-sm">{error}</div>

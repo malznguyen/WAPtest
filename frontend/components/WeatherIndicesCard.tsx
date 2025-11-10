@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react';
 import { weatherService } from '@/services/weatherService';
 import { WeatherIndex } from '@/types/weather';
-import { LargeCardSkeleton } from './LoadingSkeleton';
+import { WeatherCardSkeleton } from './LoadingSkeleton';
 import { Activity, Wind, Droplets, Sun, Flower2, TreePine, Heart, PersonStanding } from 'lucide-react';
 
 interface WeatherIndicesCardProps {
@@ -66,7 +66,7 @@ export default function WeatherIndicesCard({ city }: WeatherIndicesCardProps) {
   return (
     <>
       {loading ? (
-        <LargeCardSkeleton />
+        <WeatherCardSkeleton />
       ) : error ? (
         <div className="bg-white/70 backdrop-blur-xl rounded-3xl p-8 shadow-xl border border-white/20">
           <div className="text-red-500 text-sm">{error}</div>
